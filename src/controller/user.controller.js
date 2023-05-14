@@ -4,11 +4,16 @@ import CustomError from "../services/CustomError.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+export const cookieOptions = {
+  expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+  httpOnly: true,
+};
+
 export const createUser = asyncHandler(async (req, res) => {
-  const { firstName, lastName, userName, email, password, gender } = req.body;
+  const { FisrtName, LastName, userName, email, password, Gender } = req.body;
 
   if (!userName || !email) {
-    throw new CustomError("Please enter name and email", 400);
+    throw new CustomError("Please enter userName and email", 400);
   }
 
   const existingUser = await User.findOne({ email });
@@ -16,16 +21,24 @@ export const createUser = asyncHandler(async (req, res) => {
     throw new CustomError("Email already exist", 404);
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-  
-  const newUser = new User({ email, password: hashedPassword });
-  newUser.save();
+  const user = await User.create({
+    FisrtName,
+    LastName,
+    userName,
+    email,
+    password,
+    Gender,
+  });
 
-  const user = await User.create({ name, email });
+  const token = user.getJWTtoken();
+  console.log(token);
+  user.password = undefined;
+  res.cookie("token", token, cookieOptions);
   res.status(200).json({
     succss: true,
     message: "user created successfully",
     user,
+    token,
   });
 });
 

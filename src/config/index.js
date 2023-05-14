@@ -7,6 +7,8 @@ const config = {
   MONGODB_URL:
     process.env.MONGODB_URL ||
     "mongodb+srv://admin:admin@cluster0.shfhh1b.mongodb.net/CRUD?retryWrites=true&w=majority",
+  JWT_SECRET: process.env.JWT_SECRET || "Germany",
+  JWT_EXPIRY: process.env.JWT_EXPIRY || "30d",
 };
 
 export default config;
