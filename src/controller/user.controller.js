@@ -22,4 +22,14 @@ export const createUser = asyncHandler(async (req, res) => {
   });
 });
 
-
+export const getAllUser = asyncHandler(async (req, res) => {
+  const allUser = await User.find({});
+  if (!allUser) {
+    throw new CustomError("ther is no user exisr in DB", 404);
+  }
+  res.status(200).json({
+    succss: true,
+    message: "all user data",
+    allUser,
+  });
+});
