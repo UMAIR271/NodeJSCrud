@@ -24,6 +24,19 @@ export const getAllIssue = asyncHandler(async (req, res) => {
   });
 });
 
+export const getIssueById = asyncHandler(async (req, res) => {
+  const { id } = req.body;
+  if (!id) {
+    throw new CustomError("id field is required", 400);
+  }
+  const issueData = await addIssue.findById({ id });
+  res.status(200).json({
+    success: true,
+    message: "Issue data",
+    issueData,
+  });
+});
+
 export const deleteIssue = asyncHandler(async (req, res) => {
   const { id } = req.body;
   if (!id) {
