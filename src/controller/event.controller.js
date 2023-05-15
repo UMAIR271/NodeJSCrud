@@ -24,3 +24,38 @@ export const createEvent = asyncHandler( async (req,res) => {
         event
     })
 })
+
+export const getallEvents = asyncHandler( async (req, res) => {
+    const allEvents = await Event.find()
+    if(!allEvents) {
+        throw new CustomError("No events found",400)
+    }
+    res.status(200).json({
+        success: true,
+        allEvents
+    })
+})
+
+export const deleteEvent = asyncHandler( async (req, res) => {
+    const {id} = req.body
+    if (!id) {
+        throw new CustomError("Invalid id",400)
+    }
+    const deleteEvent = await Event.findOneAndDelete({id})
+
+    res.status(200).json({
+        success: true,
+        message: "Issue data is deleted",
+      });
+})
+
+export const updateEvent = asyncHandler(async (req, res) => {
+    const updateData = await addIssue.findByIdAndUpdate(req.parms.id , req.body);
+    if(!updateData) {
+      throw new CustomError("provide details for event update",400)
+    }
+    res.status(200).json({
+      success: true,
+      message: "data is updated successfully",
+    });
+  });
