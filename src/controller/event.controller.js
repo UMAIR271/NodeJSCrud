@@ -51,11 +51,11 @@ export const getEventById = asyncHandler(async (req, res) => {
 });
 
 export const deleteEvent = asyncHandler(async (req, res) => {
-  const { id } = req.body;
-  if (!id) {
+  const { _id } = req.body;
+  if (!_id) {
     throw new CustomError("Invalid id", 400);
   }
-  const deleteEvent = await Event.findOneAndDelete({ id });
+  const deleteEvent = await Event.findOneAndDelete({ _id });
 
   res.status(200).json({
     success: true,
