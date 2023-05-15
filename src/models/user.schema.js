@@ -5,7 +5,7 @@ import config from "../config/index.js";
 
 const userSchema = new mongoose.Schema(
   {
-    FisrtName: {
+    FirstName: {
       type: String,
       required: [true, "FirstName is required"],
       maxLenght: [50, "name must be less then 50 char"],
