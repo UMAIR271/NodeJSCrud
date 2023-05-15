@@ -9,6 +9,6 @@ const router = Router();
 
 router.post("/create-user", createUser);
 router.get("/fetch-user", getAllUser);
-router.get("/login", loginUser);
+router.post("/login", loginUser);
 
 export default router;

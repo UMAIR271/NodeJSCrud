@@ -35,7 +35,7 @@ export const createUser = asyncHandler(async (req, res) => {
   user.password = undefined;
   res.cookie("token", token, cookieOptions);
   res.status(200).json({
-    succss: true,
+    success: true,
     message: "user created successfully",
     user,
     token,
@@ -48,7 +48,7 @@ export const getAllUser = asyncHandler(async (req, res) => {
     throw new CustomError("ther is no user exisr in DB", 404);
   }
   res.status(200).json({
-    succss: true,
+    success: true,
     message: "all user data",
     allUser,
   });

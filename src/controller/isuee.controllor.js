@@ -9,7 +9,7 @@ export const createIssue = asyncHandler(async (req, res) => {
   }
   const issueData = await addIssue.create({ issueName, Duration });
   res.status(200).json({
-    succss: true,
+    success: true,
     message: "Issue data created successfully",
     issueData,
   });
@@ -22,19 +22,18 @@ export const deleteIssue = asyncHandler(async (req, res) => {
   }
   const deleteData = await addIssue.findOneAndDelete({ id });
   res.status(200).json({
-    succss: true,
+    success: true,
     message: "Issue data is deleted",
   });
 });
 
-export const editIssue = asyncHandler(async (req, res) => {
-    const { id } = req.body;
-    if (!id) {
-      throw new CustomError("id field is required", 400);
+export const updateIssue = asyncHandler(async (req, res) => {
+    const updateData = await addIssue.findByIdAndUpdate(req.parms.id , req.body);
+    if(!updateData) {
+      throw new CustomError("provide details for issue update",400)
     }
-    const deleteData = await addIssue.findByIdAndUpdate({ id, issueName, Duration, });
     res.status(200).json({
-      succss: true,
-      message: "Issue data is deleted",
+      success: true,
+      message: "data is updated successfully",
     });
   });
