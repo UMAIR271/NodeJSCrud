@@ -3,7 +3,7 @@ import asyncHandler from "../services/asyncHandler.js";
 import CustomError from "../services/CustomError.js";
 
 
-export const createEvent = asyncHandler( async (res,req) => {
+export const createEvent = asyncHandler( async (req,res) => {
     const { name , duration } = req.body
 
     if (!name || !duration) {
