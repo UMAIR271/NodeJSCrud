@@ -53,25 +53,31 @@ export const getAllUser = asyncHandler(async (req, res) => {
     allUser,
   });
 });
-export const loginUser = asyncHandler(async (req, res) => {
+export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email }).select("+password").lean();
-  if (!user) {
-    throw new CustomError("Invalid credentials", 400);
+
+  if (!email || !password) {
+      throw new CustomError("Please provide email or password");
   }
-  const userDoc = new User(user);
-  const isPassword = await userDoc.comparePassword(password);
-  if (isPassword) {
-    const token = userDoc.getJWTtoken();
-    userDoc.password = undefined;
-    res.cookie("token", token, cookieOptions);
-    res.status(200).json({
-      success: true,
-      message: "Login successfully",
-      token,
-      userDoc,
-    });
+
+  const user = await User.findOne({ email }).select('+password');
+
+  if (!user) {
+      throw new CustomError("Invalid user", 400);
+  }
+
+  const isPasswordMatched = await user.comparePassword(password);
+
+  if (isPasswordMatched) {
+      const token = await user.getJWTtoken();
+      user.password = undefined;
+      res.cookie("token", token, cookieOptions);
+      res.status(200).json({
+          success: true,
+          token,
+          user
+      });
   } else {
-    throw new CustomError("Invalid credentials", 400);
+      throw new CustomError("Password does not match!", 400);
   }
 });
