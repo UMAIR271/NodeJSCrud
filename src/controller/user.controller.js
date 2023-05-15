@@ -10,7 +10,7 @@ export const cookieOptions = {
 };
 
 export const createUser = asyncHandler(async (req, res) => {
-  const { FisrtName, LastName, userName, email, password, Gender } = req.body;
+  const { FirstName, LastName, userName, email, password, Gender } = req.body;
 
   if (!userName || !email) {
     throw new CustomError("Please enter userName and email", 400);
@@ -22,7 +22,7 @@ export const createUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.create({
-    FisrtName,
+    FirstName,
     LastName,
     userName,
     email,
