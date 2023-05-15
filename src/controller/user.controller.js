@@ -53,24 +53,25 @@ export const getAllUser = asyncHandler(async (req, res) => {
     allUser,
   });
 });
-
 export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  const user = User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email }).select("+password").lean();
   if (!user) {
     throw new CustomError("Invalid credentials", 400);
   }
-  const isPassword = await comparePassword(password);
+  const userDoc = new User(user);
+  const isPassword = await userDoc.comparePassword(password);
   if (isPassword) {
-    const token = user.getJWTtoken();
-    user.password = undefined;
+    const token = userDoc.getJWTtoken();
+    userDoc.password = undefined;
     res.cookie("token", token, cookieOptions);
     res.status(200).json({
-      succss: true,
-      message: "Login succssfully",
+      success: true,
+      message: "Login successfully",
       token,
-      user,
+      userDoc,
     });
-    throw new CustomError("password dost match", 400);
+  } else {
+    throw new CustomError("Invalid credentials", 400);
   }
 });
