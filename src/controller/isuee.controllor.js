@@ -29,7 +29,7 @@ export const getIssueById = asyncHandler(async (req, res) => {
   if (!id) {
     throw new CustomError("id field is required", 400);
   }
-  const issueData = await addIssue.findById({ id });
+  const issueData = await addIssue.findById(id);
   res.status(200).json({
     success: true,
     message: "Issue data",
