@@ -50,7 +50,8 @@ export const deleteIssue = asyncHandler(async (req, res) => {
 });
 
 export const updateIssue = asyncHandler(async (req, res) => {
-  const updateData = await addIssue.findByIdAndUpdate(req.parms.id, req.body);
+  const updateData = await addIssue.findByIdAndUpdate(req.params.id, req.body);
+  console.log(updateData);
   if (!updateData) {
     throw new CustomError("provide details for issue update", 400);
   }
