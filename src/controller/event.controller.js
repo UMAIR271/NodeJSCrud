@@ -10,7 +10,7 @@ export const createEvent = asyncHandler( async (req,res) => {
         throw new CustomError("Invalid event",400)
     }
 
-    const event = Event.create({
+    const event = await Event.create({
         name, duration , collectionId
     })
 
