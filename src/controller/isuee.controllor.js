@@ -15,6 +15,15 @@ export const createIssue = asyncHandler(async (req, res) => {
   });
 });
 
+export const getAllIssue = asyncHandler(async (req, res) => {
+  const issueData = await addIssue.find({});
+  res.status(200).json({
+    success: true,
+    message: "Issue data",
+    issueData,
+  });
+});
+
 export const deleteIssue = asyncHandler(async (req, res) => {
   const { id } = req.body;
   if (!id) {
@@ -28,12 +37,12 @@ export const deleteIssue = asyncHandler(async (req, res) => {
 });
 
 export const updateIssue = asyncHandler(async (req, res) => {
-    const updateData = await addIssue.findByIdAndUpdate(req.parms.id , req.body);
-    if(!updateData) {
-      throw new CustomError("provide details for issue update",400)
-    }
-    res.status(200).json({
-      success: true,
-      message: "data is updated successfully",
-    });
+  const updateData = await addIssue.findByIdAndUpdate(req.parms.id, req.body);
+  if (!updateData) {
+    throw new CustomError("provide details for issue update", 400);
+  }
+  res.status(200).json({
+    success: true,
+    message: "data is updated successfully",
   });
+});
