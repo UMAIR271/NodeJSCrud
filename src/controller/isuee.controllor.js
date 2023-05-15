@@ -38,11 +38,13 @@ export const getIssueById = asyncHandler(async (req, res) => {
 });
 
 export const deleteIssue = asyncHandler(async (req, res) => {
-  const { id } = req.body;
-  if (!id) {
+  const { _id } = req.body;
+  console.log(req.body);
+  if (!_id) {
     throw new CustomError("id field is required", 400);
   }
-  const deleteData = await addIssue.findOneAndDelete({ id });
+  const deleteData = await addIssue.findOneAndDelete({ _id });
+  console.log(deleteData);
   res.status(200).json({
     success: true,
     message: "Issue data is deleted",
