@@ -4,14 +4,14 @@ import CustomError from "../services/CustomError.js";
 
 
 export const createEvent = asyncHandler( async (req,res) => {
-    const { name , duration } = req.body
+    const { name , duration, collectionId  } = req.body
 
-    if (!name || !duration) {
+    if (!name || !duration || !collectionId) {
         throw new CustomError("Invalid event",400)
     }
 
     const event = Event.create({
-        name, duration
+        name, duration , collectionId
     })
 
     if(!event){
