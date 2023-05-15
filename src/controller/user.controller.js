@@ -53,15 +53,15 @@ export const getAllUser = asyncHandler(async (req, res) => {
     allUser,
   });
 });
-export const login = asyncHandler(async (req, res) => {
+export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-
+  console.log(req.body);
   if (!email || !password) {
       throw new CustomError("Please provide email or password");
   }
 
   const user = await User.findOne({ email }).select('+password');
-
+  console.log(user);
   if (!user) {
       throw new CustomError("Invalid user", 400);
   }
