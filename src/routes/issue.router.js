@@ -7,7 +7,7 @@ import {
 const router = Router();
 
 router.post("/issue-create", createIssue);
-router.post("/allIssueData", getAllIssue);
+router.get("/allIssueData", getAllIssue);
 router.post("/deleteIsuue", deleteIssue);
 router.put("/updateIssue/:id", deleteIssue);
 export default router;
