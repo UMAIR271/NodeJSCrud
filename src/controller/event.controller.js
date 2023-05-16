@@ -64,7 +64,7 @@ export const deleteEvent = asyncHandler(async (req, res) => {
 });
 
 export const updateEvent = asyncHandler(async (req, res) => {
-  const updateData = await addIssue.findByIdAndUpdate(req.parms.id, req.body);
+  const updateData = await Event.findByIdAndUpdate(req.parms.id, req.body);
   if (!updateData) {
     throw new CustomError("provide details for event update", 400);
   }
