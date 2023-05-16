@@ -30,10 +30,6 @@ const userSchema = new mongoose.Schema(
       minLength: [8, "bro provide 8 character"],
       select: false,
     },
-    Gender: {
-      type: String,
-      required: [false, "Gender is required"],
-    },
   },
   { timestamps: true }
 );
