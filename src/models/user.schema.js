@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
     },
     Gender: {
       type: String,
-      required: [true, "Gender is required"],
+      required: [false, "Gender is required"],
     },
   },
   { timestamps: true }
